@@ -1,6 +1,10 @@
+import { ClickAwayListener } from '@mui/material';
+import { Box } from '@mui/system';
 import React, { useState, useRef } from 'react';
 
 const Test = () => {
+  const [popup, setPopup] = useState(false);
+  const [coord, setCoord] = useState([0, 0]);
   const imageRef = useRef();
 
   const winner = (e) => {
@@ -28,16 +32,39 @@ const Test = () => {
         console.log('try again');
       }
     }
+    console.log(popup);
+  };
+
+  const imgClick = (e) => {
+    setPopup(!popup);
+    setCoord([e.nativeEvent.offsetX, e.nativeEvent.offsetY]);
   };
 
   return (
     <div>
-      <img
-        src="https://3hwuuuxcz5o651g144s0kw10-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/G3M_Wheres_Waldo.jpg"
-        className="waldo1"
-        ref={imageRef}
-        onClick={winner}
-      />
+      <ClickAwayListener onClickAway={() => setPopup(false)}>
+        <div>
+          <img
+            src="https://3hwuuuxcz5o651g144s0kw10-wpengine.netdna-ssl.com/wp-content/uploads/2016/07/G3M_Wheres_Waldo.jpg"
+            className="waldo1"
+            ref={imageRef}
+            onClick={imgClick}
+          />
+
+          {popup ? (
+            <Box
+              sx={{
+                position: 'absolute',
+                left: coord[0],
+                top: coord[1],
+                backgroundColor: 'white',
+              }}
+            >
+              Click me, I will stay visible until you click outside.
+            </Box>
+          ) : null}
+        </div>
+      </ClickAwayListener>
     </div>
   );
 };
