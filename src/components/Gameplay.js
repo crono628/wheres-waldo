@@ -10,7 +10,7 @@ const Gameplay = ({ gamesource }) => {
   const imageRef = useRef();
 
   const imgChoiceCoord = (e) => {
-    const { pageX, pageY } = e;
+    let { pageX, pageY } = e;
     let theX = Number(imageRef.current.offsetWidth / pageX).toFixed(2);
     let theY = Number(imageRef.current.offsetHeight / pageY).toFixed(2);
     setChoiceCoord([theX, theY]);
@@ -40,7 +40,15 @@ const Gameplay = ({ gamesource }) => {
 
   const imgClick = (e) => {
     setPopup(!popup);
-    setPopupCoord([e.nativeEvent.offsetX, e.nativeEvent.offsetY]);
+    let axisX = e.nativeEvent.offsetX;
+    let axisY = e.nativeEvent.offsetY;
+    if (axisX + 120 > imageRef.current.offsetWidth) {
+      axisX -= 120;
+    }
+    if (axisY + 120 > imageRef.current.offsetHeight) {
+      axisY -= 120;
+    }
+    setPopupCoord([axisX, axisY]);
   };
 
   return (
@@ -64,8 +72,8 @@ const Gameplay = ({ gamesource }) => {
                 left: popupCoord[0],
                 top: popupCoord[1],
                 backgroundColor: 'lightgray',
-                border: '3px solid black',
-                borderRadius: '10px',
+                border: '1px solid black',
+                borderRadius: '5px',
               }}
             >
               <Stack spacing={2}>
@@ -79,6 +87,7 @@ const Gameplay = ({ gamesource }) => {
                         padding: '10px',
                         cursor: 'pointer',
                       }}
+                      elevation={24}
                     >
                       {choice.name}
                     </Paper>
