@@ -1,13 +1,13 @@
 import React from 'react';
-import Test from './components/Test';
+import Gameplay from './components/Gameplay';
+import { locations } from './components/locations';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import Waldo1 from './components/Waldo1';
-import { ClickAwayListener } from '@mui/material';
 
 const App = () => {
+  let tester = locations.find((item) => item.board == 1);
   return (
     <div>
-      <Test />
+      <Gameplay gamesource={tester} />
     </div>
   );
 };
