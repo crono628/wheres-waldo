@@ -11,8 +11,8 @@ let locations = [
       },
       {
         name: 'Odlaw',
-        topLeft: { x: 31.3, y: 1.32 },
-        bottomRight: { x: 17.14, y: 1.22 },
+        topLeft: { x: 3, y: 76 },
+        bottomRight: { x: 6, y: 82 },
       },
     ],
   },

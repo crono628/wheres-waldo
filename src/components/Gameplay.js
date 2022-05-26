@@ -10,11 +10,14 @@ const Gameplay = ({ gamesource }) => {
   const imageRef = useRef();
 
   const imgChoiceCoord = (e) => {
-    let { pageX, pageY } = e;
-    let theX = Number(imageRef.current.offsetWidth / pageX).toFixed(2);
-    let theY = Number(imageRef.current.offsetHeight / pageY).toFixed(2);
-    setChoiceCoord([theX, theY]);
-    // console.log(theX, theY);
+    const xCoord = Math.round(
+      (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
+    );
+    const yCoord = Math.round(
+      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
+    );
+    setChoiceCoord([xCoord, yCoord]);
+    console.log(xCoord, yCoord);
   };
 
   const checkForWin = (selection) => {
@@ -23,11 +26,11 @@ const Gameplay = ({ gamesource }) => {
     );
 
     let validX =
-      choiceCoord[0] <= choice.topLeft.x &&
-      choiceCoord[0] >= choice.bottomRight.x;
+      choiceCoord[0] >= choice.topLeft.x &&
+      choiceCoord[0] <= choice.bottomRight.x;
     let validY =
-      choiceCoord[1] <= choice.topLeft.y &&
-      choiceCoord[1] >= choice.bottomRight.y;
+      choiceCoord[1] >= choice.topLeft.y &&
+      choiceCoord[1] <= choice.bottomRight.y;
 
     if (validX && validY) {
       console.log('winner!');
