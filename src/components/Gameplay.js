@@ -1,28 +1,61 @@
-import { ClickAwayListener, Paper, Stack } from '@mui/material';
-import { Box } from '@mui/system';
+import {
+  Alert,
+  ClickAwayListener,
+  Paper,
+  Popover,
+  Stack,
+  Zoom,
+} from '@mui/material';
+import { Box, width } from '@mui/system';
 import React, { useState, useRef } from 'react';
+import RenderChoice from './RenderChoice';
 
 const Gameplay = ({ gamesource }) => {
   const [popup, setPopup] = useState(false);
   const [popupCoord, setPopupCoord] = useState([0, 0]);
   const [currentBoard, setCurrentBoard] = useState(gamesource);
   const [choiceCoord, setChoiceCoord] = useState([0, 0]);
+  const [correct, setCorrect] = useState(null);
   const imageRef = useRef();
+  const popupRef = useRef();
 
   const imgChoiceCoord = (e) => {
-    const xCoord = Math.round(
-      (e.nativeEvent.offsetX / e.nativeEvent.target.offsetWidth) * 100
-    );
-    const yCoord = Math.round(
-      (e.nativeEvent.offsetY / e.nativeEvent.target.offsetHeight) * 100
-    );
-    setChoiceCoord([xCoord, yCoord]);
-    console.log(xCoord, yCoord);
+    let popupWidth = popupRef.current.offsetWidth;
+    let popupHeight = popupRef.current.offsetHeight;
+
+    let imgWidth = imageRef.current.offsetWidth;
+    let imgHeight = imageRef.current.offsetHeight;
+
+    let clickLocX = e.nativeEvent.offsetX;
+    let clickLocY = e.nativeEvent.offsetY;
+
+    let pageClickX = e.pageX;
+    let pageClickY = e.pageY;
+
+    const xCoord = Math.round((clickLocX / imgWidth) * 100);
+    const yCoord = Math.round((clickLocY / imgHeight) * 100);
+
+    let popX;
+    let popY;
+
+    pageClickX + popupWidth > imgWidth
+      ? (popX = pageClickX - popupWidth)
+      : (popX = pageClickX);
+    pageClickY + popupHeight > imgHeight
+      ? (popY = pageClickY - popupHeight)
+      : (popY = pageClickY);
+
+    if (!popup) {
+      setChoiceCoord([xCoord, yCoord]);
+      setPopupCoord([popX, popY]);
+    }
+    setPopup(!popup);
+    // console.log(xCoord, yCoord);
   };
 
   const checkForWin = (selection) => {
     let choice = currentBoard.characters.find(
-      (item) => item.name === selection
+      (item) => item.name === selection.name
     );
 
     let validX =
@@ -34,74 +67,58 @@ const Gameplay = ({ gamesource }) => {
 
     if (validX && validY) {
       console.log('winner!');
+      setCorrect(true);
+      setTimeout(() => {
+        setCorrect(null);
+        setPopup(!popup);
+      }, 1000);
     } else {
       console.log('try again');
+      setCorrect(false);
+      setTimeout(() => {
+        setCorrect(null);
+        setPopup(!popup);
+      }, 1000);
     }
-
-    setPopup(!popup);
-  };
-
-  const imgClick = (e) => {
-    setPopup(!popup);
-    let axisX = e.nativeEvent.offsetX;
-    let axisY = e.nativeEvent.offsetY;
-    if (axisX + 120 > imageRef.current.offsetWidth) {
-      axisX -= 120;
-    }
-    if (axisY + 120 > imageRef.current.offsetHeight) {
-      axisY -= 120;
-    }
-    setPopupCoord([axisX, axisY]);
   };
 
   return (
-    <div>
-      <ClickAwayListener onClickAway={() => setPopup(false)}>
-        <div>
-          <img
-            src={currentBoard.source}
-            className="waldo1"
-            ref={imageRef}
-            onClick={(e) => {
-              imgClick(e);
-              imgChoiceCoord(e);
-            }}
-          />
-
-          {popup ? (
-            <Box
-              sx={{
-                position: 'absolute',
-                left: popupCoord[0],
-                top: popupCoord[1],
-                backgroundColor: 'lightgray',
-                border: '1px solid black',
-                borderRadius: '5px',
-              }}
-            >
-              <Stack spacing={2}>
-                {currentBoard.characters.map((choice, index) => {
-                  return (
-                    <Paper
-                      onClick={() => checkForWin(choice.name)}
-                      key={index}
-                      style={{
-                        margin: '10px',
-                        padding: '10px',
-                        cursor: 'pointer',
-                      }}
-                      elevation={24}
-                    >
-                      {choice.name}
-                    </Paper>
-                  );
-                })}
-              </Stack>
-            </Box>
-          ) : null}
-        </div>
-      </ClickAwayListener>
-    </div>
+    <>
+      <Box
+        component="img"
+        src={currentBoard.source}
+        className="waldo1"
+        ref={imageRef}
+        onClick={(e) => {
+          imgChoiceCoord(e);
+        }}
+      />
+      <Zoom in={popup}>
+        <Box
+          sx={{
+            position: 'absolute',
+            left: popupCoord[0],
+            top: popupCoord[1],
+            backgroundColor: 'lightgray',
+            border: '1px solid black',
+            borderRadius: '5px',
+          }}
+        >
+          <Stack ref={popupRef} spacing={1}>
+            {currentBoard.characters.map((choice, index) => {
+              return (
+                <RenderChoice
+                  key={index}
+                  choice={choice}
+                  checkForWin={checkForWin}
+                  selection={correct}
+                />
+              );
+            })}
+          </Stack>
+        </Box>
+      </Zoom>
+    </>
   );
 };
 

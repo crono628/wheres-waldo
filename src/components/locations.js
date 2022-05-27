@@ -6,8 +6,8 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 1.26, y: 31.15 },
-        bottomRight: { x: 1.23, y: 13.06 },
+        topLeft: { x: 79, y: 3 },
+        bottomRight: { x: 82, y: 8 },
       },
       {
         name: 'Odlaw',
