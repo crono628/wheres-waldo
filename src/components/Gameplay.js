@@ -1,23 +1,38 @@
 import {
-  Alert,
-  ClickAwayListener,
+  Card,
+  Dialog,
+  Fade,
+  List,
+  ListSubheader,
   Paper,
-  Popover,
   Stack,
   Zoom,
 } from '@mui/material';
-import { Box, width } from '@mui/system';
-import React, { useState, useRef } from 'react';
+import { Box } from '@mui/system';
+import React, { useState, useRef, useEffect } from 'react';
 import RenderChoice from './RenderChoice';
+import Timer from './Timer';
 
 const Gameplay = ({ gamesource }) => {
   const [popup, setPopup] = useState(false);
   const [popupCoord, setPopupCoord] = useState([0, 0]);
-  const [currentBoard, setCurrentBoard] = useState(gamesource);
+  const [currentBoard, setCurrentBoard] = useState(null);
   const [choiceCoord, setChoiceCoord] = useState([0, 0]);
   const [correct, setCorrect] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
+
   const imageRef = useRef();
   const popupRef = useRef();
+
+  useEffect(() => {
+    if (gamesource) {
+      setCurrentBoard(gamesource);
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [gamesource]);
 
   const imgChoiceCoord = (e) => {
     let popupWidth = popupRef.current.offsetWidth;
@@ -38,10 +53,10 @@ const Gameplay = ({ gamesource }) => {
     let popX;
     let popY;
 
-    pageClickX + popupWidth > imgWidth
+    clickLocX + popupWidth > imgWidth
       ? (popX = pageClickX - popupWidth)
       : (popX = pageClickX);
-    pageClickY + popupHeight > imgHeight
+    clickLocY + popupHeight > imgHeight
       ? (popY = pageClickY - popupHeight)
       : (popY = pageClickY);
 
@@ -50,7 +65,7 @@ const Gameplay = ({ gamesource }) => {
       setPopupCoord([popX, popY]);
     }
     setPopup(!popup);
-    // console.log(xCoord, yCoord);
+    console.log(imageRef);
   };
 
   const checkForWin = (selection) => {
@@ -82,42 +97,84 @@ const Gameplay = ({ gamesource }) => {
     }
   };
 
+  const handleActive = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <>
-      <Box
-        component="img"
-        src={currentBoard.source}
-        className="waldo1"
-        ref={imageRef}
-        onClick={(e) => {
-          imgChoiceCoord(e);
-        }}
-      />
-      <Zoom in={popup}>
-        <Box
+      {!loading && (
+        <Paper
+          elevation={18}
           sx={{
-            position: 'absolute',
-            left: popupCoord[0],
-            top: popupCoord[1],
-            backgroundColor: 'lightgray',
-            border: '1px solid black',
-            borderRadius: '5px',
+            width: '100%',
+            backgroundColor: 'lemonchiffon',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginBottom: 3,
           }}
         >
-          <Stack ref={popupRef} spacing={1}>
-            {currentBoard.characters.map((choice, index) => {
-              return (
-                <RenderChoice
-                  key={index}
-                  choice={choice}
-                  checkForWin={checkForWin}
-                  selection={correct}
-                />
-              );
-            })}
-          </Stack>
-        </Box>
-      </Zoom>
+          <ListSubheader sx={{ backgroundColor: 'inherit', margin: 1 }}>
+            <Timer isActive={isActive} onClick={handleActive} />
+          </ListSubheader>
+          <Fade in={!isActive}>
+            <Card
+              onClick={handleActive}
+              sx={{
+                position: 'absolute',
+                width: '150px',
+                height: '50px',
+                marginLeft: 'auto',
+                marginTop: '22%',
+                zIndex: 1,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              Game Paused
+            </Card>
+          </Fade>
+          <Box
+            sx={{
+              filter: !isActive ? 'blur(4px)' : '',
+            }}
+            component="img"
+            src={currentBoard.source}
+            className="waldo1"
+            ref={imageRef}
+            onClick={(e) => {
+              imgChoiceCoord(e);
+            }}
+          />
+          <Zoom in={popup}>
+            <Box
+              sx={{
+                position: 'absolute',
+                left: popupCoord[0],
+                top: popupCoord[1],
+                backgroundColor: 'lightgray',
+                border: '1px solid black',
+                borderRadius: '5px',
+              }}
+            >
+              <Stack ref={popupRef} spacing={1}>
+                {currentBoard.characters.map((choice, index) => {
+                  return (
+                    <RenderChoice
+                      key={index}
+                      choice={choice}
+                      checkForWin={checkForWin}
+                      selection={correct}
+                    />
+                  );
+                })}
+              </Stack>
+            </Box>
+          </Zoom>
+        </Paper>
+      )}
     </>
   );
 };

@@ -3,27 +3,26 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { Typography } from '@mui/material';
+import { Button, Dialog, DialogTitle, Typography } from '@mui/material';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  height: 60,
-  lineHeight: '60px',
-}));
+// const Item = styled(Paper)(({ theme }) => ({
+//   ...theme.typography.body2,
+//   textAlign: 'center',
+//   color: theme.palette.text.secondary,
+//   height: 60,
+//   lineHeight: '60px',
+// }));
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
-const lightTheme = createTheme({ palette: { mode: 'light' } });
+// const darkTheme = createTheme({ palette: { mode: 'dark' } });
+// const lightTheme = createTheme({ palette: { mode: 'light' } });
 
-const Timer = () => {
-  const [isActive, setIsActive] = useState(false);
+const Timer = ({ isActive, onClick }) => {
   const [time, setTime] = useState(0);
 
   useEffect(() => {
     let interval;
 
-    if (isActive === true) {
+    if (isActive) {
       interval = setInterval(() => {
         setTime((prev) => prev + 10);
       }, 10);
@@ -39,17 +38,27 @@ const Timer = () => {
   let minutes = ('0' + Math.floor((time / 60000) % 60)).slice(-2);
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-      }}
-    >
-      <Typography component="div" variant="h3">
-        <span>{minutes}</span>:<span>{seconds}</span>:
-        <span>{milliseconds}</span>
-      </Typography>
-      <button onClick={() => setIsActive(true)}>start</button>
-      <button onClick={() => setIsActive(false)}>stop</button>
+    <Box sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100px',
+          justifyContent: 'flex-start',
+        }}
+      >
+        <Typography component="div" variant="h5">
+          <span>{minutes}</span>:<span>{seconds}</span>:
+          <span>{milliseconds}</span>
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100px',
+        }}
+      >
+        <Button onClick={onClick}>Pause</Button>
+      </Box>
     </Box>
   );
 };

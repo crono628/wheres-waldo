@@ -15,8 +15,8 @@ function RenderChoice({ choice, checkForWin, selection }) {
         }, 1000);
       }}
       style={{
-        margin: '10px',
-        padding: '10px',
+        margin: 2,
+        padding: 5,
         cursor: 'pointer',
         backgroundColor:
           toggleIcon && selection
@@ -25,7 +25,7 @@ function RenderChoice({ choice, checkForWin, selection }) {
             ? 'pink'
             : '',
       }}
-      elevation={24}
+      elevation={18}
     >
       <Box
         sx={{
@@ -34,6 +34,7 @@ function RenderChoice({ choice, checkForWin, selection }) {
           width: '75px',
           alignItems: 'center',
           height: '30px',
+          fontSize: 14,
         }}
       >
         <div style={{ paddingLeft: '5px' }}>{choice.name}</div>
