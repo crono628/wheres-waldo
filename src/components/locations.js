@@ -25,31 +25,40 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 79, y: 3 },
-        bottomRight: { x: 82, y: 8 },
+        topLeft: { x: 48, y: 31 },
+        bottomRight: { x: 51, y: 36 },
       },
       {
-        name: 'Odlaw',
-        topLeft: { x: 3, y: 76 },
-        bottomRight: { x: 6, y: 82 },
+        name: 'Wenda',
+        topLeft: { x: 71, y: 35 },
+        bottomRight: { x: 73, y: 38 },
       },
     ],
   },
   {
     board: 3,
     title: 'Food Mess',
-    source:
-      'https://1.bp.blogspot.com/-wBaod_Bz9Sg/TtcrkXV75aI/AAAAAAAABAk/nxLkFHqI_Zo/s1600/Play+Wheres+Waldo+Online+Puzzle+Game+Gobbling+Gluttons+Closeup.jpg',
+    source: 'https://i.imgur.com/NhXecfo.jpeg',
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 79, y: 3 },
-        bottomRight: { x: 82, y: 8 },
+        topLeft: { x: 56, y: 30 },
+        bottomRight: { x: 58, y: 35 },
       },
       {
         name: 'Odlaw',
-        topLeft: { x: 3, y: 76 },
-        bottomRight: { x: 6, y: 82 },
+        topLeft: { x: 39, y: 53 },
+        bottomRight: { x: 41, y: 57 },
+      },
+      {
+        name: 'Wenda',
+        topLeft: { x: 38, y: 29 },
+        bottomRight: { x: 40, y: 32 },
+      },
+      {
+        name: 'Wizard Whitebeard',
+        topLeft: { x: 84, y: 75 },
+        bottomRight: { x: 86, y: 82 },
       },
     ],
   },
@@ -104,6 +113,79 @@ let locations = [
         name: 'Odlaw',
         topLeft: { x: 3, y: 76 },
         bottomRight: { x: 6, y: 82 },
+      },
+    ],
+  },
+  {
+    board: 7,
+    title: 'Flea Market',
+    source: 'https://i.imgur.com/xJfH95R.jpeg',
+    characters: [
+      {
+        name: 'Waldo',
+        topLeft: { x: 41, y: 15 },
+        bottomRight: { x: 43, y: 20 },
+      },
+    ],
+  },
+  {
+    board: 8,
+    title: 'Ocean Garbage Patch',
+    source: 'https://i.imgur.com/c6morhS.jpeg',
+    characters: [
+      {
+        name: 'Waldo',
+        topLeft: { x: 47, y: 19 },
+        bottomRight: { x: 49, y: 25 },
+      },
+      {
+        name: 'Wenda',
+        topLeft: { x: 21, y: 29 },
+        bottomRight: { x: 24, y: 33 },
+      },
+      {
+        name: 'Wizard Whitebeard',
+        topLeft: { x: 68, y: 14 },
+        bottomRight: { x: 70, y: 19 },
+      },
+    ],
+  },
+  {
+    board: 9,
+    title: 'Crazy Castle',
+    source: 'https://i.imgur.com/UQLgzwO.jpeg',
+    characters: [
+      {
+        name: 'Waldo',
+        topLeft: { x: 16, y: 76 },
+        bottomRight: { x: 17, y: 78 },
+      },
+      {
+        name: 'Wenda',
+        topLeft: { x: 75, y: 69 },
+        bottomRight: { x: 77, y: 72 },
+      },
+    ],
+  },
+  {
+    board: 10,
+    title: 'Cult Fun',
+    source: 'https://i.imgur.com/FAvY6x9.jpeg',
+    characters: [
+      {
+        name: 'Waldo',
+        topLeft: { x: 92, y: 3 },
+        bottomRight: { x: 96, y: 8 },
+      },
+      {
+        name: 'Wenda',
+        topLeft: { x: 27, y: 57 },
+        bottomRight: { x: 28, y: 61 },
+      },
+      {
+        name: 'Wizard Whitebeard',
+        topLeft: { x: 28, y: 34 },
+        bottomRight: { x: 31, y: 41 },
       },
     ],
   },

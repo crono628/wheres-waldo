@@ -73,8 +73,9 @@ const Timer = ({ isActive, onClick }) => {
             <Checkbox
               size="small"
               onClick={onClick}
-              icon={<PlayCircleOutlinedIcon sx={{ color: 'black' }} />}
-              checkedIcon={<PauseCircleOutlinedIcon sx={{ color: 'black' }} />}
+              icon={<PauseCircleOutlinedIcon sx={{ color: 'black' }} />}
+              checkedIcon={<PlayCircleOutlinedIcon sx={{ color: 'black' }} />}
+              defaultChecked
             />
           }
           label={!isActive ? 'Paused' : ''}

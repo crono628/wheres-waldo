@@ -65,7 +65,7 @@ const Gameplay = ({ gamesource }) => {
       setPopupCoord([popX, popY]);
     }
     setPopup(!popup);
-    console.log(imageRef);
+    console.log(xCoord, yCoord);
   };
 
   const checkForWin = (selection) => {
@@ -115,13 +115,15 @@ const Gameplay = ({ gamesource }) => {
             marginBottom: 3,
           }}
         >
-          <ListSubheader sx={{ backgroundColor: 'inherit', margin: 1 }}>
+          <ListSubheader
+            disableSticky={true}
+            sx={{ backgroundColor: 'inherit', margin: 1 }}
+          >
             <Timer isActive={isActive} onClick={handleActive} />
           </ListSubheader>
           <Fade in={!isActive}>
             <Card
               elevation={24}
-              onClick={handleActive}
               sx={{
                 position: 'absolute',
                 width: '150px',
