@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wheres-waldo/static/css/main.164ab054.css",
+    "main.js": "/wheres-waldo/static/js/main.ac5a8b3a.js",
+    "index.html": "/wheres-waldo/index.html",
+    "main.164ab054.css.map": "/wheres-waldo/static/css/main.164ab054.css.map",
+    "main.ac5a8b3a.js.map": "/wheres-waldo/static/js/main.ac5a8b3a.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.164ab054.css",
+    "static/js/main.ac5a8b3a.js"
+  ]
+}
