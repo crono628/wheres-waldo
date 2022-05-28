@@ -16,8 +16,8 @@ import Timer from './Timer';
 const Gameplay = ({ gamesource }) => {
   const [popup, setPopup] = useState(false);
   const [popupCoord, setPopupCoord] = useState([0, 0]);
-  const [currentBoard, setCurrentBoard] = useState(null);
   const [choiceCoord, setChoiceCoord] = useState([0, 0]);
+  const [currentBoard, setCurrentBoard] = useState(null);
   const [correct, setCorrect] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isActive, setIsActive] = useState(false);
@@ -120,6 +120,7 @@ const Gameplay = ({ gamesource }) => {
           </ListSubheader>
           <Fade in={!isActive}>
             <Card
+              elevation={24}
               onClick={handleActive}
               sx={{
                 position: 'absolute',
