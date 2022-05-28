@@ -20,9 +20,13 @@ const App = () => {
       maxWidth="md"
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
-      <Header />
-      <Body onClick={handleClick} />
-      <Gameplay gamesource={choice} />
+      <HashRouter>
+        <Header onClick={handleClick} />
+        <Routes>
+          <Route exact path="/" element={<Body onClick={handleClick} />} />
+          <Route path="/board" element={<Gameplay gamesource={choice} />} />
+        </Routes>
+      </HashRouter>
     </Container>
   );
 };

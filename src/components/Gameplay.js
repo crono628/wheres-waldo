@@ -139,7 +139,8 @@ const Gameplay = ({ gamesource }) => {
           </Fade>
           <Box
             sx={{
-              filter: !isActive ? 'blur(4px)' : '',
+              filter: !isActive ? 'blur(5px)' : '',
+              paddingBottom: 5,
             }}
             component="img"
             src={currentBoard.source}
