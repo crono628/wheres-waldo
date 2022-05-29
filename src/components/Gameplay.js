@@ -1,10 +1,13 @@
-import { Card, Fade, ListSubheader, Paper, Stack, Zoom } from '@mui/material';
+import { ListSubheader, Paper } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, createContext } from 'react';
 import AvatarDisplay from './AvatarDisplay';
+import Board from './Board';
+import ChooseCharacterPopup from './ChooseCharacterPopup';
 import FadePauseAlert from './FadePauseAlert';
-import RenderChoice from './RenderChoice';
 import Timer from './Timer';
+
+const ChoiceContext = createContext(null);
 
 const Gameplay = ({ gamesource }) => {
   const [popup, setPopup] = useState(false);
@@ -17,6 +20,12 @@ const Gameplay = ({ gamesource }) => {
 
   const imageRef = useRef();
   const popupRef = useRef();
+
+  const choiceContextValues = {
+    correct: correct,
+    popup: popup,
+    popupCoord: popupCoord,
+  };
 
   useEffect(() => {
     if (gamesource) {
@@ -116,57 +125,23 @@ const Gameplay = ({ gamesource }) => {
             <AvatarDisplay currentBoard={currentBoard} />
           </ListSubheader>
           <FadePauseAlert isActive={isActive} />
-          <Box
-            sx={{
-              filter: !isActive ? 'blur(5px)' : '',
-            }}
-            component="img"
-            src={currentBoard.source}
-            className="waldo1"
-            ref={imageRef}
-            onClick={(e) => {
-              imgChoiceCoord(e);
-            }}
+          <Board
+            isActive={isActive}
+            currentBoard={currentBoard}
+            imageRef={imageRef}
+            onClick={imgChoiceCoord}
           />
-          <Box
-            sx={{
-              height: '40px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            {currentBoard.title}
-          </Box>
-          <Zoom in={popup}>
-            <Box
-              sx={{
-                position: 'absolute',
-                left: popupCoord[0],
-                top: popupCoord[1],
-                backgroundColor: 'lightgray',
-                border: '1px solid black',
-                borderRadius: '5px',
-              }}
-            >
-              <Stack ref={popupRef} spacing={1}>
-                {currentBoard.characters.map((choice, index) => {
-                  return (
-                    <RenderChoice
-                      key={index}
-                      choice={choice}
-                      checkForWin={checkForWin}
-                      selection={correct}
-                    />
-                  );
-                })}
-              </Stack>
-            </Box>
-          </Zoom>
+          <ChoiceContext.Provider value={choiceContextValues}>
+            <ChooseCharacterPopup
+              popupRef={popupRef}
+              currentBoard={currentBoard}
+              checkForWin={checkForWin}
+            />
+          </ChoiceContext.Provider>
         </Paper>
       )}
     </>
   );
 };
 
-export default Gameplay;
+export { Gameplay, ChoiceContext };
