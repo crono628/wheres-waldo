@@ -7,13 +7,18 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 79, y: 3 },
-        bottomRight: { x: 82, y: 8 },
+        topLeft: { x: 78, y: 2 },
+        bottomRight: { x: 82, y: 9 },
+      },
+      {
+        name: 'Wenda',
+        topLeft: { x: 87, y: 22 },
+        bottomRight: { x: 90, y: 30 },
       },
       {
         name: 'Odlaw',
-        topLeft: { x: 3, y: 76 },
-        bottomRight: { x: 6, y: 82 },
+        topLeft: { x: 2, y: 67 },
+        bottomRight: { x: 7, y: 75 },
       },
     ],
   },
@@ -56,7 +61,7 @@ let locations = [
         bottomRight: { x: 40, y: 32 },
       },
       {
-        name: 'Wizard Whitebeard',
+        name: 'Wizard',
         topLeft: { x: 84, y: 75 },
         bottomRight: { x: 86, y: 82 },
       },
@@ -144,7 +149,7 @@ let locations = [
         bottomRight: { x: 24, y: 33 },
       },
       {
-        name: 'Wizard Whitebeard',
+        name: 'Wizard',
         topLeft: { x: 68, y: 14 },
         bottomRight: { x: 70, y: 19 },
       },
@@ -158,12 +163,12 @@ let locations = [
       {
         name: 'Waldo',
         topLeft: { x: 16, y: 76 },
-        bottomRight: { x: 17, y: 78 },
+        bottomRight: { x: 18, y: 79 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 75, y: 69 },
-        bottomRight: { x: 77, y: 72 },
+        topLeft: { x: 74, y: 67 },
+        bottomRight: { x: 77, y: 71 },
       },
     ],
   },
@@ -183,7 +188,7 @@ let locations = [
         bottomRight: { x: 28, y: 61 },
       },
       {
-        name: 'Wizard Whitebeard',
+        name: 'Wizard',
         topLeft: { x: 28, y: 34 },
         bottomRight: { x: 31, y: 41 },
       },

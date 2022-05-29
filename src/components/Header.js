@@ -22,7 +22,7 @@ const Header = ({ onClick }) => {
             avatar={
               <Avatar
                 sx={{ width: 100, height: 100 }}
-                src={characterAvatars.waldo}
+                src={characterAvatars.waldo.photo}
               />
             }
             title={<Box component="h1">Where's Waldo?</Box>}

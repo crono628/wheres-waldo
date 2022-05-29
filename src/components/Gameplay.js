@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Card,
   Dialog,
   Fade,
@@ -10,6 +11,7 @@ import {
 } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useRef, useEffect } from 'react';
+import { characterAvatars } from './characterAvatars';
 import RenderChoice from './RenderChoice';
 import Timer from './Timer';
 
@@ -120,6 +122,18 @@ const Gameplay = ({ gamesource }) => {
             sx={{ backgroundColor: 'inherit', margin: 1 }}
           >
             <Timer isActive={isActive} onClick={handleActive} />
+            <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
+              {currentBoard.characters.map((item, index) => {
+                let pic;
+                for (const key in characterAvatars) {
+                  const element = characterAvatars[key];
+                  if (item.name === element.name) {
+                    pic = <Avatar key={index} src={element.photo} />;
+                  }
+                }
+                return pic;
+              })}
+            </Box>
           </ListSubheader>
           <Fade in={!isActive}>
             <Card
@@ -142,7 +156,6 @@ const Gameplay = ({ gamesource }) => {
           <Box
             sx={{
               filter: !isActive ? 'blur(5px)' : '',
-              paddingBottom: 5,
             }}
             component="img"
             src={currentBoard.source}
@@ -152,6 +165,16 @@ const Gameplay = ({ gamesource }) => {
               imgChoiceCoord(e);
             }}
           />
+          <Box
+            sx={{
+              height: '40px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {currentBoard.title}
+          </Box>
           <Zoom in={popup}>
             <Box
               sx={{
