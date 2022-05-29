@@ -1,17 +1,8 @@
-import {
-  Avatar,
-  Card,
-  Dialog,
-  Fade,
-  List,
-  ListSubheader,
-  Paper,
-  Stack,
-  Zoom,
-} from '@mui/material';
+import { Card, Fade, ListSubheader, Paper, Stack, Zoom } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useState, useRef, useEffect } from 'react';
-import { characterAvatars } from './characterAvatars';
+import AvatarDisplay from './AvatarDisplay';
+import FadePauseAlert from './FadePauseAlert';
 import RenderChoice from './RenderChoice';
 import Timer from './Timer';
 
@@ -122,37 +113,9 @@ const Gameplay = ({ gamesource }) => {
             sx={{ backgroundColor: 'inherit', margin: 1 }}
           >
             <Timer isActive={isActive} onClick={handleActive} />
-            <Box sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
-              {currentBoard.characters.map((item, index) => {
-                let pic;
-                for (const key in characterAvatars) {
-                  const element = characterAvatars[key];
-                  if (item.name === element.name) {
-                    pic = <Avatar key={index} src={element.photo} />;
-                  }
-                }
-                return pic;
-              })}
-            </Box>
+            <AvatarDisplay currentBoard={currentBoard} />
           </ListSubheader>
-          <Fade in={!isActive}>
-            <Card
-              elevation={24}
-              sx={{
-                position: 'absolute',
-                width: '150px',
-                height: '50px',
-                marginLeft: 'auto',
-                marginTop: '22%',
-                zIndex: 1,
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              Game Paused
-            </Card>
-          </Fade>
+          <FadePauseAlert isActive={isActive} />
           <Box
             sx={{
               filter: !isActive ? 'blur(5px)' : '',
