@@ -7,18 +7,18 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 78, y: 2 },
+        topLeft: { x: 79, y: 3 },
         bottomRight: { x: 82, y: 9 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 87, y: 22 },
-        bottomRight: { x: 90, y: 30 },
+        topLeft: { x: 87, y: 24 },
+        bottomRight: { x: 90, y: 33 },
       },
       {
         name: 'Odlaw',
-        topLeft: { x: 2, y: 67 },
-        bottomRight: { x: 7, y: 75 },
+        topLeft: { x: 3, y: 76 },
+        bottomRight: { x: 6, y: 83 },
       },
     ],
   },
@@ -47,23 +47,23 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 56, y: 30 },
-        bottomRight: { x: 58, y: 35 },
+        topLeft: { x: 56, y: 33 },
+        bottomRight: { x: 58, y: 39 },
       },
       {
         name: 'Odlaw',
-        topLeft: { x: 39, y: 53 },
-        bottomRight: { x: 41, y: 57 },
+        topLeft: { x: 39, y: 58 },
+        bottomRight: { x: 41, y: 64 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 38, y: 29 },
-        bottomRight: { x: 40, y: 32 },
+        topLeft: { x: 38, y: 31 },
+        bottomRight: { x: 40, y: 36 },
       },
       {
         name: 'Wizard',
-        topLeft: { x: 84, y: 75 },
-        bottomRight: { x: 86, y: 82 },
+        topLeft: { x: 83, y: 83 },
+        bottomRight: { x: 87, y: 91 },
       },
     ],
   },
@@ -128,8 +128,8 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 41, y: 15 },
-        bottomRight: { x: 43, y: 20 },
+        topLeft: { x: 40, y: 16 },
+        bottomRight: { x: 44, y: 22 },
       },
     ],
   },
@@ -140,18 +140,18 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 47, y: 19 },
-        bottomRight: { x: 49, y: 25 },
+        topLeft: { x: 46, y: 20 },
+        bottomRight: { x: 49, y: 27 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 21, y: 29 },
-        bottomRight: { x: 24, y: 33 },
+        topLeft: { x: 21, y: 31 },
+        bottomRight: { x: 24, y: 37 },
       },
       {
         name: 'Wizard',
-        topLeft: { x: 68, y: 14 },
-        bottomRight: { x: 70, y: 19 },
+        topLeft: { x: 68, y: 15 },
+        bottomRight: { x: 71, y: 21 },
       },
     ],
   },
@@ -162,13 +162,13 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 16, y: 76 },
-        bottomRight: { x: 18, y: 79 },
+        topLeft: { x: 16, y: 83 },
+        bottomRight: { x: 18, y: 87 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 74, y: 67 },
-        bottomRight: { x: 77, y: 71 },
+        topLeft: { x: 74, y: 75 },
+        bottomRight: { x: 77, y: 78 },
       },
     ],
   },
@@ -179,18 +179,23 @@ let locations = [
     characters: [
       {
         name: 'Waldo',
-        topLeft: { x: 92, y: 3 },
-        bottomRight: { x: 96, y: 8 },
+        topLeft: { x: 92, y: 4 },
+        bottomRight: { x: 96, y: 10 },
+      },
+      {
+        name: 'Odlaw',
+        topLeft: { x: 89, y: 54 },
+        bottomRight: { x: 92, y: 62 },
       },
       {
         name: 'Wenda',
-        topLeft: { x: 27, y: 57 },
-        bottomRight: { x: 28, y: 61 },
+        topLeft: { x: 27, y: 63 },
+        bottomRight: { x: 29, y: 67 },
       },
       {
         name: 'Wizard',
-        topLeft: { x: 28, y: 34 },
-        bottomRight: { x: 31, y: 41 },
+        topLeft: { x: 27, y: 37 },
+        bottomRight: { x: 31, y: 47 },
       },
     ],
   },
