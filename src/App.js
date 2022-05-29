@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Gameplay from './components/Gameplay';
+import React, { useState } from 'react';
+import { Gameplay } from './components/Gameplay';
 import { locations } from './components/locations';
 import { HashRouter, Routes, Route } from 'react-router-dom';
-import { Box, Container } from '@mui/material';
-import Timer from './components/Timer';
+import { Container } from '@mui/material';
 import Header from './components/Header';
 import Body from './components/Body';
 
