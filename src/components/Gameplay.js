@@ -1,15 +1,14 @@
 import { ListSubheader, Paper } from '@mui/material';
-import { Box } from '@mui/system';
 import React, { useState, useRef, useEffect, createContext } from 'react';
 import AvatarDisplay from './AvatarDisplay';
 import Board from './Board';
 import ChooseCharacterPopup from './ChooseCharacterPopup';
-import FadePauseAlert from './FadePauseAlert';
+import FadeAlert from './FadeAlert';
 import Timer from './Timer';
 
 const ChoiceContext = createContext(null);
 
-const Gameplay = ({ gamesource }) => {
+const Gameplay = ({ gamesource, onClick }) => {
   const [popup, setPopup] = useState(false);
   const [popupCoord, setPopupCoord] = useState([0, 0]);
   const [choiceCoord, setChoiceCoord] = useState([0, 0]);
@@ -37,6 +36,10 @@ const Gameplay = ({ gamesource }) => {
   }, [gamesource]);
 
   const imgChoiceCoord = (e) => {
+    if (currentBoard.characters.every((character) => character.found)) {
+      return;
+    }
+
     let popupWidth = popupRef.current.offsetWidth;
     let popupHeight = popupRef.current.offsetHeight;
 
@@ -71,7 +74,8 @@ const Gameplay = ({ gamesource }) => {
   };
 
   const checkForWin = (selection) => {
-    let choice = currentBoard.characters.find(
+    let copyBoard = structuredClone(currentBoard);
+    let choice = copyBoard.characters.find(
       (item) => item.name === selection.name
     );
 
@@ -83,14 +87,23 @@ const Gameplay = ({ gamesource }) => {
       choiceCoord[1] <= choice.bottomRight.y;
 
     if (validX && validY) {
-      console.log('winner!');
+      choice.found = true;
+      let index = currentBoard.characters.findIndex(
+        (item) => item.name === choice.name
+      );
+
+      copyBoard.characters[index] = choice;
+      if (copyBoard.characters.every((character) => character.found)) {
+        setIsActive(false);
+      }
+
+      setCurrentBoard(copyBoard);
       setCorrect(true);
       setTimeout(() => {
         setCorrect(null);
         setPopup(!popup);
       }, 1000);
     } else {
-      console.log('try again');
       setCorrect(false);
       setTimeout(() => {
         setCorrect(null);
@@ -99,8 +112,10 @@ const Gameplay = ({ gamesource }) => {
     }
   };
 
-  const handleActive = () => {
-    setIsActive(!isActive);
+  const handleTimer = () => {
+    if (currentBoard.characters.every((character) => !character.found)) {
+      setIsActive(!isActive);
+    }
   };
 
   return (
@@ -121,10 +136,14 @@ const Gameplay = ({ gamesource }) => {
             disableSticky={true}
             sx={{ backgroundColor: 'inherit', margin: 1 }}
           >
-            <Timer isActive={isActive} onClick={handleActive} />
+            <Timer isActive={isActive} onClick={handleTimer} />
             <AvatarDisplay currentBoard={currentBoard} />
           </ListSubheader>
-          <FadePauseAlert isActive={isActive} />
+          <FadeAlert
+            currentBoard={currentBoard}
+            isActive={isActive}
+            onClick={onClick}
+          />
           <Board
             isActive={isActive}
             currentBoard={currentBoard}

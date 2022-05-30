@@ -1,5 +1,4 @@
 import {
-  Card,
   CardContent,
   IconButton,
   ImageList,
@@ -8,13 +7,11 @@ import {
   ListSubheader,
   Paper,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { locations } from './locations';
 
-const Body = ({ onClick }) => {
-  const [loading, setLoading] = useState(true);
-
+const Main = ({ onClick }) => {
   return (
     <Paper
       elevation={18}
@@ -28,7 +25,7 @@ const Body = ({ onClick }) => {
         Choose a picture to begin searching for Waldo
       </ListSubheader>
       <CardContent>
-        <Link to={'/board'}>
+        <Link to={'/'}>
           <ImageList>
             <ImageListItem key="Subheader" cols={2}></ImageListItem>
             {locations.map((item, index) => {
@@ -60,4 +57,4 @@ const Body = ({ onClick }) => {
   );
 };
 
-export default Body;
+export default Main;

@@ -31,17 +31,19 @@ function RenderChoice({ choice, checkForWin, selection }) {
         sx={{
           display: 'flex',
           justifyContent: 'flex-start',
-          width: '75px',
+          width: '65px',
           alignItems: 'center',
-          height: '30px',
-          fontSize: 14,
+          height: '20px',
+          fontSize: '0.5rem',
         }}
       >
-        <div style={{ paddingLeft: '5px' }}>{choice.name}</div>
+        <div style={{ paddingLeft: '5px', paddingRight: '5px' }}>
+          {choice.name}
+        </div>
         {toggleIcon && selection === true ? (
-          <CheckCircleOutlinedIcon />
+          <CheckCircleOutlinedIcon fontSize="small" />
         ) : toggleIcon && selection === false ? (
-          <CancelOutlinedIcon />
+          <CancelOutlinedIcon fontSize="small" />
         ) : null}
       </Box>
     </Paper>

@@ -3,9 +3,8 @@ import { Avatar, CardContent, CardHeader, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { characterAvatars } from './characterAvatars';
 import { Link } from 'react-router-dom';
-import Body from './Body';
 
-const Header = ({ onClick }) => {
+const Header = () => {
   return (
     <>
       <Paper
