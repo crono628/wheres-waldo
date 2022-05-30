@@ -3,7 +3,6 @@ import React, { useState, useRef, useEffect, createContext } from 'react';
 import AvatarDisplay from './AvatarDisplay';
 import Board from './Board';
 import ChooseCharacterPopup from './ChooseCharacterPopup';
-import FadeAlert from './FadeAlert';
 import Timer from './Timer';
 
 const ChoiceContext = createContext(null);
@@ -16,6 +15,7 @@ const Gameplay = ({ gamesource, onClick }) => {
   const [correct, setCorrect] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isActive, setIsActive] = useState(false);
+  const [confirm, setConfirm] = useState([]);
 
   const imageRef = useRef();
   const popupRef = useRef();
@@ -99,6 +99,7 @@ const Gameplay = ({ gamesource, onClick }) => {
 
       setCurrentBoard(copyBoard);
       setCorrect(true);
+      setConfirm(confirm.concat([selection.name, choiceCoord]));
       setTimeout(() => {
         setCorrect(null);
         setPopup(!popup);
@@ -136,14 +137,14 @@ const Gameplay = ({ gamesource, onClick }) => {
             disableSticky={true}
             sx={{ backgroundColor: 'inherit', margin: 1 }}
           >
-            <Timer isActive={isActive} onClick={handleTimer} />
+            <Timer
+              isActive={isActive}
+              handleTimer={handleTimer}
+              currentBoard={currentBoard}
+              onClick={onClick}
+            />
             <AvatarDisplay currentBoard={currentBoard} />
           </ListSubheader>
-          <FadeAlert
-            currentBoard={currentBoard}
-            isActive={isActive}
-            onClick={onClick}
-          />
           <Board
             isActive={isActive}
             currentBoard={currentBoard}

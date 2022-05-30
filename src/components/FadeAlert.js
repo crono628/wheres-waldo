@@ -1,8 +1,19 @@
-import { Button, Card, Fade } from '@mui/material';
+import { Button, Card, Fade, TextField } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
-const FadeAlert = ({ isActive, currentBoard, onClick }) => {
+const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
+  const [name, setName] = useState('');
+  const textRef = useRef();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(playerFactory(name, timeRecord));
+  };
+
+  function playerFactory(user, timeObj) {
+    const { display, time } = timeObj;
+    return { user, display, time };
+  }
   return (
     <>
       <Fade in={!isActive}>
@@ -10,9 +21,9 @@ const FadeAlert = ({ isActive, currentBoard, onClick }) => {
           elevation={24}
           sx={{
             position: 'absolute',
-            padding: 5,
+            padding: 1,
             marginLeft: 'auto',
-            marginTop: '25%',
+            marginTop: '15%',
             zIndex: 1,
             display: 'flex',
             justifyContent: 'center',
@@ -27,14 +38,31 @@ const FadeAlert = ({ isActive, currentBoard, onClick }) => {
                 textAlign: 'center',
               }}
             >
-              'You found everyone!'
-              <Button
-                variant="contained"
-                sx={{ color: 'white', marginTop: 2 }}
-                onClick={onClick}
-              >
-                Choose a new picture
-              </Button>
+              You found everyone!
+              <Box onSubmit={handleSubmit} component="form" autoComplete="off">
+                <TextField
+                  id="outlined-basic"
+                  label="Name"
+                  variant="outlined"
+                  inputRef={textRef}
+                  inputProps={{ minLength: 3, maxLength: 10 }}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  error={name.length > 10}
+                  helperText={'Record your name and time'}
+                />
+                <div>{timeRecord.display}</div>
+                <Button variant="outlined" onClick={onClick}>
+                  Cancel
+                </Button>
+                <Button
+                  type="submit"
+                  // onClick={handleSubmit}
+                  variant="contained"
+                >
+                  Submit
+                </Button>
+              </Box>
             </Box>
           ) : (
             'Game Paused'

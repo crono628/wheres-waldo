@@ -1,10 +1,9 @@
 import React from 'react';
-import { Avatar, CardContent, CardHeader, Paper } from '@mui/material';
+import { Avatar, CardHeader, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { characterAvatars } from './characterAvatars';
-import { Link } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ onClick }) => {
   return (
     <>
       <Paper
@@ -16,17 +15,23 @@ const Header = () => {
           marginTop: 3,
         }}
       >
-        <Link to="/">
-          <CardHeader
-            avatar={
-              <Avatar
-                sx={{ width: 100, height: 100 }}
-                src={characterAvatars.waldo.photo}
-              />
-            }
-            title={<Box component="h1">Where's Waldo?</Box>}
-          />
-        </Link>
+        <CardHeader
+          avatar={
+            <Avatar
+              sx={{ width: 100, height: 100, cursor: 'pointer' }}
+              src={characterAvatars.waldo.photo}
+            />
+          }
+          title={
+            <Box
+              sx={{ cursor: 'pointer', width: 'fit-content' }}
+              component="h1"
+            >
+              Where's Waldo?
+            </Box>
+          }
+          onClick={onClick}
+        />
       </Paper>
     </>
   );
