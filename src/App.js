@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Gameplay } from './components/Gameplay';
-import { locations } from './components/locations';
 import { Button, Container } from '@mui/material';
 import Header from './components/Header';
 import Main from './components/Main';
 import HighScores from './components/HighScores';
 import { app, db } from './firebase';
-import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
+import {
+  doc,
+  setDoc,
+  addDoc,
+  collection,
+  query,
+  onSnapshot,
+  getDocs,
+} from 'firebase/firestore';
+import { async } from '@firebase/util';
 
 function dataFactory(data) {
   return { data };
@@ -14,10 +22,26 @@ function dataFactory(data) {
 
 const App = () => {
   const [choice, setChoice] = useState(null);
+  const [boards, setBoards] = useState([]);
   const [viewHighScores, setViewHighScores] = useState(false);
 
+  useEffect(() => {
+    if (boards.length === 0) {
+      const unsub = async () => {
+        const boardsArr = [];
+        const querySnapshot = await getDocs(collection(db, 'boards'));
+        querySnapshot.forEach((doc) => {
+          boardsArr.push({ ...doc.data(), id: doc.id });
+        });
+        setBoards(boardsArr);
+      };
+      console.log('render');
+      return unsub;
+    }
+  }, []);
+
   const handleClick = (e) => {
-    let finder = locations.find((item) => item.title === e.target.alt);
+    let finder = boards.find((item) => item.title === e.target.alt);
     setChoice(finder);
   };
 
@@ -27,8 +51,10 @@ const App = () => {
       sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
     >
       <Header onClick={() => setChoice(null)} />
-      {!choice && <Main onClick={handleClick} />}
-      {choice && (
+      {!choice && !viewHighScores && (
+        <Main onClick={handleClick} boards={boards} />
+      )}
+      {choice && !viewHighScores && (
         <Gameplay gamesource={choice} onClick={() => setChoice(null)} />
       )}
       {/* <HighScores /> */}

@@ -1,19 +1,33 @@
 import { Button, Card, Fade, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
+import { db } from '../firebase';
+import { addDoc, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
 const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
   const [name, setName] = useState('');
   const textRef = useRef();
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(playerFactory(name, timeRecord));
+    const currentBoardRef = doc(db, 'boards', `${currentBoard.id}`);
+
+    try {
+      await updateDoc(currentBoardRef, {
+        high_scores: arrayUnion(playerFactory(name, timeRecord)),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+    onClick();
   };
 
   function playerFactory(user, timeObj) {
     const { display, time } = timeObj;
-    return { user, display, time };
+    const id = currentBoard.id;
+    return { user, display, time, id };
   }
+
   return (
     <>
       <Fade in={!isActive}>
@@ -45,10 +59,10 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
                   label="Name"
                   variant="outlined"
                   inputRef={textRef}
-                  inputProps={{ minLength: 3, maxLength: 10 }}
+                  inputProps={{ maxLength: 11 }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  error={name.length > 10}
+                  error={name.length > 11}
                   helperText={'Record your name and time'}
                 />
                 <div>{timeRecord.display}</div>

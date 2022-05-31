@@ -8,9 +8,8 @@ import {
   Paper,
 } from '@mui/material';
 import React from 'react';
-import { locations } from './locations';
 
-const Main = ({ onClick }) => {
+const Main = ({ onClick, boards }) => {
   return (
     <Paper
       elevation={18}
@@ -26,7 +25,7 @@ const Main = ({ onClick }) => {
       <CardContent>
         <ImageList>
           <ImageListItem key="Subheader" cols={2}></ImageListItem>
-          {locations.map((item, index) => {
+          {boards.map((item, index) => {
             return (
               <ImageListItem sx={{ cursor: 'pointer' }} key={index}>
                 <img
