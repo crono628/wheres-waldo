@@ -1,44 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import { Gameplay } from './components/Gameplay';
-import { Button, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import Header from './components/Header';
 import Main from './components/Main';
 import HighScores from './components/HighScores';
-import { app, db } from './firebase';
-import {
-  doc,
-  setDoc,
-  addDoc,
-  collection,
-  query,
-  onSnapshot,
-  getDocs,
-} from 'firebase/firestore';
-import { async } from '@firebase/util';
-
-function dataFactory(data) {
-  return { data };
-}
+import { db } from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 const App = () => {
   const [choice, setChoice] = useState(null);
   const [boards, setBoards] = useState([]);
+  const [highScores, setHighScores] = useState([]);
   const [viewHighScores, setViewHighScores] = useState(false);
 
   useEffect(() => {
-    if (boards.length === 0) {
-      const unsub = async () => {
-        const boardsArr = [];
-        const querySnapshot = await getDocs(collection(db, 'boards'));
-        querySnapshot.forEach((doc) => {
-          boardsArr.push({ ...doc.data(), id: doc.id });
-        });
-        setBoards(boardsArr);
-      };
-      console.log('render');
-      return unsub;
-    }
-  }, []);
+    const unsub = async () => {
+      const boardsArr = [];
+      const scoresArr = [];
+      const querySnapshotBoards = await getDocs(collection(db, 'boards'));
+      querySnapshotBoards.forEach((doc) => {
+        boardsArr.push({ ...doc.data(), id: doc.id });
+      });
+
+      const querySnapshotScores = await getDocs(collection(db, 'high_scores'));
+      querySnapshotScores.forEach((doc) => {
+        scoresArr.push({ ...doc.data(), id: doc.id });
+      });
+      setBoards(boardsArr);
+      setHighScores(scoresArr);
+    };
+
+    return unsub;
+  }, [choice]);
 
   const handleClick = (e) => {
     let finder = boards.find((item) => item.title === e.target.alt);
@@ -57,7 +50,7 @@ const App = () => {
       {choice && !viewHighScores && (
         <Gameplay gamesource={choice} onClick={() => setChoice(null)} />
       )}
-      {/* <HighScores /> */}
+      <HighScores highScores={highScores} boards={boards} />
     </Container>
   );
 };

@@ -2,7 +2,7 @@ import { Button, Card, Fade, TextField } from '@mui/material';
 import { Box } from '@mui/system';
 import React, { useRef, useState } from 'react';
 import { db } from '../firebase';
-import { addDoc, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, setDoc } from 'firebase/firestore';
 
 const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
   const [name, setName] = useState('');
@@ -10,12 +10,10 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const currentBoardRef = doc(db, 'boards', `${currentBoard.id}`);
-
+    const currentBoardRef = doc(collection(db, 'high_scores'));
+    const data = playerFactory(name, timeRecord);
     try {
-      await updateDoc(currentBoardRef, {
-        high_scores: arrayUnion(playerFactory(name, timeRecord)),
-      });
+      await setDoc(currentBoardRef, data);
     } catch (error) {
       console.log(error);
     }
@@ -24,8 +22,8 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
 
   function playerFactory(user, timeObj) {
     const { display, time } = timeObj;
-    const id = currentBoard.id;
-    return { user, display, time, id };
+    const board = currentBoard.id;
+    return { user, display, time, board };
   }
 
   return (
@@ -69,11 +67,7 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
                 <Button variant="outlined" onClick={onClick}>
                   Cancel
                 </Button>
-                <Button
-                  type="submit"
-                  // onClick={handleSubmit}
-                  variant="contained"
-                >
+                <Button type="submit" variant="contained">
                   Submit
                 </Button>
               </Box>
