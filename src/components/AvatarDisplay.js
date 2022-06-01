@@ -19,7 +19,7 @@ const AvatarDisplay = ({ currentBoard }) => {
                     display: item.found ? 'none' : '',
                   }}
                   key={index}
-                  src={require(`${element.photo}`)}
+                  src={element.photo}
                 />
               );
             }
