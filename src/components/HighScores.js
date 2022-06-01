@@ -80,7 +80,7 @@ const HighScores = ({ highScores, boards }) => {
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">Position</TableCell>
+                  <TableCell align="center">Position</TableCell>
                   <TableCell align="left">Player</TableCell>
                   <TableCell align="left">Time</TableCell>
                 </TableRow>
@@ -91,7 +91,7 @@ const HighScores = ({ highScores, boards }) => {
                     key={index}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell align="left">{index + 1}</TableCell>
+                    <TableCell align="center">{index + 1}</TableCell>
 
                     <TableCell align="left" component="th" scope="row">
                       {score.user}
