@@ -1,5 +1,6 @@
 {
   "name": "wheres-waldo",
+  "homepage": "https://waldo-ce529.firebaseapp.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

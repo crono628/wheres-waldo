@@ -29,7 +29,6 @@ const HighScores = ({ highScores, boards }) => {
       setDisplay(filterSort);
     };
     renderScores();
-    console.log('highscore render');
   }, [highScores, dropChoice]);
 
   const handleChange = (e) => {

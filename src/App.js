@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Main from './components/Main';
 import HighScores from './components/HighScores';
 import { db } from './firebase';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, onSnapshot, query } from 'firebase/firestore';
 
 const App = () => {
   const [choice, setChoice] = useState(null);
@@ -14,21 +14,30 @@ const App = () => {
   const [viewHighScores, setViewHighScores] = useState(false);
 
   useEffect(() => {
-    const unsub = async () => {
-      const boardsArr = [];
-      const scoresArr = [];
-      const querySnapshotBoards = await getDocs(collection(db, 'boards'));
-      querySnapshotBoards.forEach((doc) => {
+    const querySnapshotBoards = query(collection(db, 'boards'));
+
+    const unsub = onSnapshot(querySnapshotBoards, (snapshot) => {
+      let boardsArr = [];
+      snapshot.forEach((doc) => {
         boardsArr.push({ ...doc.data(), id: doc.id });
       });
 
-      const querySnapshotScores = await getDocs(collection(db, 'high_scores'));
-      querySnapshotScores.forEach((doc) => {
+      setBoards(boardsArr);
+    });
+
+    return unsub;
+  }, [choice]);
+
+  useEffect(() => {
+    const querySnapshotScores = query(collection(db, 'high_scores'));
+    const unsub = onSnapshot(querySnapshotScores, (snapshot) => {
+      let scoresArr = [];
+      snapshot.forEach((doc) => {
         scoresArr.push({ ...doc.data(), id: doc.id });
       });
-      setBoards(boardsArr);
+
       setHighScores(scoresArr);
-    };
+    });
 
     return unsub;
   }, [choice]);
