@@ -57,7 +57,7 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
                   label="Name"
                   variant="outlined"
                   inputRef={textRef}
-                  inputProps={{ maxLength: 11 }}
+                  inputProps={{ maxLength: 15 }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   error={name.length > 15}

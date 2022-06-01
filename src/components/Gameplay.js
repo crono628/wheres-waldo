@@ -113,8 +113,10 @@ const Gameplay = ({ gamesource, onClick }) => {
   };
 
   const handleTimer = () => {
-    if (currentBoard.characters.every((character) => !character.found)) {
-      setIsActive((prev) => !prev);
+    if (currentBoard.characters.every((character) => character.found)) {
+      setIsActive(false);
+    } else {
+      setIsActive(!isActive);
     }
   };
 
