@@ -60,14 +60,18 @@ const FadeAlert = ({ isActive, currentBoard, onClick, timeRecord }) => {
                   inputProps={{ maxLength: 11 }}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  error={name.length > 11}
+                  error={name.length > 15}
                   helperText={'Record your name and time'}
                 />
                 <div>{timeRecord.display}</div>
                 <Button variant="outlined" onClick={onClick}>
                   Cancel
                 </Button>
-                <Button type="submit" variant="contained">
+                <Button
+                  disabled={name.length < 3}
+                  type="submit"
+                  variant="contained"
+                >
                   Submit
                 </Button>
               </Box>

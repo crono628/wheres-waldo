@@ -70,7 +70,6 @@ const Gameplay = ({ gamesource, onClick }) => {
       setPopupCoord([popX, popY]);
     }
     setPopup(!popup);
-    console.log(xCoord, yCoord);
   };
 
   const checkForWin = (selection) => {
@@ -115,7 +114,7 @@ const Gameplay = ({ gamesource, onClick }) => {
 
   const handleTimer = () => {
     if (currentBoard.characters.every((character) => !character.found)) {
-      setIsActive(!isActive);
+      setIsActive((prev) => !prev);
     }
   };
 
